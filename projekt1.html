@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <p>
+  <h1>GENERATOR HASEŁ</h1>
+  </p>
+
+  <P>
+  <h3>Generuj hasło:</h3>
+  </P>
+
+  <p>
+  <h4>1.Użyj dużych liter</h4>
+  </p>
+  <input type="radio" id="largeTrue" name="large" />
+  <label for="tak">tak</label>
+  <input type="radio" id="largeFalse" name="large" />
+  <label for="nie">nie</label>
+
+  <p>
+  <h4>2.Użyj małych liter</h4>
+  </p>
+  <input type="radio" id="smallTrue" name="small" />
+  <label for="tak">tak</label>
+  <input type="radio" id="smallFalse" name="small" />
+  <label for="nie">nie</label>
+
+  <p>
+  <h4>3.Użyj cyfr</h4>
+  </p>
+  <input type="radio" id="numberTrue" name="number" />
+  <label for="tak">tak</label>
+  <input type="radio" id="numberFalse" name="number" />
+  <label for="nie">nie</label>
+
+  <p>
+  <h4>4.Użyj znaków specjalnych</h4>
+  </p>
+  <input type="radio" id="specialSignsTrue" name="specialSigns" />
+  <label for="tak">tak</label>
+  <input type="radio" id="specialSignsFalse" name="specialSigns" />
+  <label for="nie">nie</label>
+
+  <p>
+  <h4>Określ długość hasła między 1 a 10</h4>
+  </p>
+  <input type="range" id="passwordLength" min="1" max="10" step="1" />
+
+  <br>
+  <input type="submit" onclick="generate()" id="generuj.Haslo" value="Generuj hasło" />
+
+  <p id="container"></p>
+
+  <script>
+    function generate() {
+      const useLargeCase = document.getElementById("largeTrue").checked
+      const useSmallCase = document.getElementById("smallTrue").checked
+      const useNumber = document.getElementById("numberTrue").checked
+      const useSpecialSigns = document.getElementById("specialSignsTrue").checked
+      const passwordLength = document.getElementById("passwordLength").value
+
+      let result = ""
+      let characters = ""
+      if (useLargeCase == true) {
+        characters += "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+      }
+      if (useSmallCase == true) {
+        characters += "abcdefghijklmnopqrstuvwxyz"
+      }
+
+      if (useNumber == true) {
+        characters += "0123456789"
+      }
+
+      if (useSpecialSigns == true) {
+        characters += ",.<>/?;:"
+      }
+
+      if (characters == "") {
+        printPassword('Zaznacz przynajmniej jedną z dostępnych opcji na tak')
+      }
+      else {
+        for (let i = 0; i < passwordLength; i++) {
+          result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+
+        printPassword(result)
+      }
+    }
+
+    function printPassword(password) {
+      document.querySelector('#container').innerHTML = password;
+    }
+  </script>
+</body>
+
+</html>
